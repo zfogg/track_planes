@@ -3,20 +3,17 @@ services:
     image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
     container_name: piaware
     restart: unless-stopped
-    ports:
-      - "8091:80"
+    network_mode: host
     environment:
       - TZ=America/New_York
       - RECEIVER_TYPE=relay
-      - BEASTHOST=host.docker.internal
+      - BEASTHOST=127.0.0.1
       - BEASTPORT=30005
       # - FEEDER_ID=YOUR_FEEDER_ID  # Set after first run
       - ALLOW_MLAT=yes
       - MLAT_RESULTS=yes
-      - MLAT_RESULTS_BEASTHOST=host.docker.internal
+      - MLAT_RESULTS_BEASTHOST=127.0.0.1
       - MLAT_RESULTS_BEASTPORT=30104
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     volumes:
       - /var/cache/piaware:/var/cache/piaware
 
@@ -35,6 +32,7 @@ services:
       - ALT=${OPENSKY_ALT:-46}
       - OPENSKY_USERNAME=${OPENSKY_USERNAME:-}
       - OPENSKY_SERIAL=${OPENSKY_SERIAL:-}
+      - DISABLE_DUMP1090=yes
     extra_hosts:
       - "host.docker.internal:host-gateway"
     tmpfs:
