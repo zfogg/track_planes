@@ -8,7 +8,7 @@ url="https://github.com/zfogg/track_planes"
 license=('MIT')
 depends=(
     'dump1090_rs'
-    'readsb'
+    'readsb-git'
     'lighttpd'
     'docker'
     'docker-compose'

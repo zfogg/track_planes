@@ -6,6 +6,7 @@ Documentation=https://github.com/wiedehopf/readsb
 Wants=network.target
 After=network.target dump1090_rs.service
 BindsTo=dump1090_rs.service
+Requires=dump1090_rs.service
 
 [Service]
 EnvironmentFile=/etc/default/readsb

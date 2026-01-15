@@ -3,6 +3,7 @@ Description=PiAware FlightAware Feeder
 After=docker.service dump1090_rs.service readsb.service
 Requires=docker.service
 BindsTo=readsb.service
+Requires=readsb.service
 
 [Service]
 Type=oneshot
