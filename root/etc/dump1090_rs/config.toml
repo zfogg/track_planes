@@ -1,0 +1,10 @@
+[[sdrs]]
+driver = "rtlsdr"
+
+[[sdrs.gain]]
+key = "TUNER"
+value = 49.6
+
+[[sdrs.setting]]
+key = "sample_rate"
+value = "12000000"

@@ -4,7 +4,7 @@ Wants=network.target
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/dump1090_rs --host 127.0.0.1 --port 30002
+ExecStart=/usr/bin/dump1090_rs --host 127.0.0.1 --port 30002 --custom-config /etc/dump1090_rs/config.toml
 Type=simple
 Restart=always
 RestartSec=5

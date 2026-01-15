@@ -16,6 +16,8 @@ services:
       - MLAT_RESULTS_BEASTPORT=30104
     volumes:
       - /var/cache/piaware:/var/cache/piaware
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
   opensky:
     image: ghcr.io/sdr-enthusiasts/docker-opensky-network:latest
