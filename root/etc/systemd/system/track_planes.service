@@ -1,0 +1,14 @@
+[Unit]
+Description=Track Planes ADS-B Stack
+Documentation=https://github.com/zfogg/track_planes
+After=network.target docker.service
+Wants=dump1090_rs.service readsb.service piaware.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/true
+ExecStop=/bin/true
+
+[Install]
+WantedBy=multi-user.target
