@@ -1,0 +1,13 @@
+[Unit]
+Description=dump1090_rs ADS-B receiver
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/dump1090_rs --host 127.0.0.1 --port 30002
+Type=simple
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

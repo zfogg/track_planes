@@ -1,0 +1,50 @@
+post_install() {
+    # Create readsb user
+    if ! getent passwd readsb >/dev/null; then
+        useradd --system --home-dir /usr/share/readsb --no-create-home --shell /usr/sbin/nologin readsb
+    fi
+
+    # Create cache directory
+    mkdir -p /var/cache/piaware
+
+    # Clone tar1090
+    if [ ! -d /usr/local/share/tar1090/git ]; then
+        git clone --depth 1 https://github.com/wiedehopf/tar1090.git /usr/local/share/tar1090/git
+    fi
+    if [ ! -d /usr/local/share/tar1090/git-db ]; then
+        git clone --depth 1 https://github.com/wiedehopf/tar1090-db.git /usr/local/share/tar1090/git-db
+    fi
+
+    # Setup tar1090 html
+    mkdir -p /usr/local/share/tar1090/html
+    cp -r /usr/local/share/tar1090/git/html/* /usr/local/share/tar1090/html/
+    ln -sf /run/readsb /usr/local/share/tar1090/html/data
+
+    # Reload udev rules
+    udevadm control --reload-rules
+    udevadm trigger
+
+    # Reload systemd
+    systemctl daemon-reload
+
+    echo "==> Enable services with: systemctl enable --now dump1090_rs readsb lighttpd piaware"
+    echo "==> tar1090 will be available at http://localhost:8090"
+    echo "==> piaware will be available at http://localhost:8091"
+    echo "==> Claim your piaware at https://flightaware.com/adsb/piaware/claim"
+}
+
+post_upgrade() {
+    post_install
+}
+
+pre_remove() {
+    systemctl disable --now piaware lighttpd readsb dump1090_rs 2>/dev/null || true
+}
+
+post_remove() {
+    # Remove readsb user
+    userdel readsb 2>/dev/null || true
+
+    echo "==> Config files in /etc/track_planes and /etc/default/readsb were preserved"
+    echo "==> Remove manually if desired"
+}
