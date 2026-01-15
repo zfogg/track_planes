@@ -13,9 +13,7 @@ depends=(
     'docker'
     'docker-compose'
     'rtl-sdr'
-)
-optdepends=(
-    'git: for tar1090 updates'
+    'git'
 )
 backup=(
     'etc/default/readsb'
