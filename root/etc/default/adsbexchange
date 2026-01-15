@@ -1,0 +1,17 @@
+# ADSBExchange Configuration
+# Generated for track_planes stack
+
+# Receiver coordinates (required)
+LATITUDE=39.09725
+LONGITUDE=-77.01173
+ALTITUDE=46
+
+# Connection to readsb Beast output
+INPUT=127.0.0.1:30005
+
+# UUID (will be generated automatically if not set)
+# UUID=
+
+# Optional parameters
+# Uncomment to enable features
+# JSON_OPTIONS="--write-json /run/adsbexchange-feed"

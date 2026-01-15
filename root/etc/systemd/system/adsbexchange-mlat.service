@@ -1,0 +1,17 @@
+[Unit]
+Description=ADS-B Exchange MLAT
+After=network.target readsb.service adsbexchange-feed.service
+Requires=readsb.service adsbexchange-feed.service
+BindsTo=readsb.service
+
+[Service]
+Type=simple
+User=adsbexchange
+WorkingDirectory=/usr/local/share/adsbexchange/git
+EnvironmentFile=/etc/default/adsbexchange
+ExecStart=/usr/local/share/adsbexchange/git/scripts/adsbexchange-mlat.sh
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
