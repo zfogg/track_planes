@@ -19,3 +19,38 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - /var/cache/piaware:/var/cache/piaware
+
+  adsbhub:
+    image: ghcr.io/sdr-enthusiasts/docker-adsbhub:latest
+    container_name: adsbhub
+    restart: unless-stopped
+    ports:
+      - "8092:80"
+    environment:
+      - TZ=America/New_York
+      - SBSHOST=host.docker.internal
+      - SBSPORT=30003
+      - CLIENTKEY=${ADSBHUB_STATION_KEY:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  opensky:
+    image: ghcr.io/sdr-enthusiasts/docker-opensky-network:latest
+    container_name: opensky
+    restart: unless-stopped
+    ports:
+      - "8093:80"
+    environment:
+      - TZ=America/New_York
+      - BEASTHOST=host.docker.internal
+      - BEASTPORT=30005
+      - LAT=${OPENSKY_LAT:-39.09725}
+      - LONG=${OPENSKY_LONG:--77.01173}
+      - ALT=${OPENSKY_ALT:-46}
+      - OPENSKY_USERNAME=${OPENSKY_USERNAME:-}
+      - OPENSKY_SERIAL=${OPENSKY_SERIAL:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log

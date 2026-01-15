@@ -1,0 +1,16 @@
+[Unit]
+Description=OpenSky Network Feeder
+After=docker.service dump1090_rs.service readsb.service
+Requires=docker.service readsb.service
+BindsTo=readsb.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/etc/track_planes
+ExecStart=/usr/bin/docker compose up -d opensky
+ExecStop=/usr/bin/docker compose stop opensky
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
